@@ -6,12 +6,15 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 export async function POST(req: Request) {
+  // Get the SIGNING_SECRET from environment variables
   const SIGNING_SECRET = process.env.SIGNING_SECRET;
 
+  // Return early if SIGNING_SECRET is not set (development/build time)
   if (!SIGNING_SECRET) {
-    throw new Error(
-      "Error: Please add SIGNING_SECRET from Clerk Dashboard to .env or .env"
-    );
+    console.warn("Warning: SIGNING_SECRET is not set");
+    return new Response("Webhook signing secret not configured", {
+      status: 400,
+    });
   }
 
   // Create new Svix instance with secret
