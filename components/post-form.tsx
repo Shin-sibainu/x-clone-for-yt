@@ -42,35 +42,35 @@ export default function PostForm() {
 
   return (
     <div className="border-b border-gray-200 p-4">
-      <div className="flex gap-4">
-        <Avatar className="w-12 h-12">
+      <div className="flex gap-2 sm:gap-4">
+        <Avatar className="w-10 h-10 sm:w-12 sm:h-12 flex-shrink-0">
           <AvatarImage src={user.imageUrl} alt={user.username || ""} />
           <AvatarFallback>{user.username?.[0] || "U"}</AvatarFallback>
         </Avatar>
-        <div className="flex-1">
+        <div className="flex-1 min-w-0">
           <Textarea
             placeholder="いまどうしてる？"
             value={content}
             onChange={(e) => setContent(e.target.value)}
-            className="min-h-[80px] border-none bg-transparent text-xl resize-none placeholder:text-gray-500 pb-0 focus-visible:ring-0"
+            className="min-h-[80px] border-none bg-transparent text-base sm:text-xl resize-none placeholder:text-gray-500 pb-0 focus-visible:ring-0 w-full"
           />
           {error && <p className="mt-2 text-sm text-red-500">{error}</p>}
           <div className="flex items-center justify-between mt-2">
-            <div className="flex gap-2 text-[#1D9BF0]">
+            <div className="sm:flex gap-1 sm:gap-2 text-[#1D9BF0] hidden">
               <button className="hover:bg-blue-50 p-1.5 rounded-full">
-                <Image className="w-5 h-5" />
+                <Image className="w-4 h-4 sm:w-5 sm:h-5" />
               </button>
               <button className="hover:bg-blue-50 p-1.5 rounded-full">
-                <MapPin className="w-5 h-5" />
+                <MapPin className="w-4 h-4 sm:w-5 sm:h-5" />
               </button>
               <button className="hover:bg-blue-50 p-1.5 rounded-full">
-                <Smile className="w-5 h-5" />
+                <Smile className="w-4 h-4 sm:w-5 sm:h-5" />
               </button>
               <button className="hover:bg-blue-50 p-1.5 rounded-full">
-                <Calendar className="w-5 h-5" />
+                <Calendar className="w-4 h-4 sm:w-5 sm:h-5" />
               </button>
               <button className="hover:bg-blue-50 p-1.5 rounded-full">
-                <Poll className="w-5 h-5" />
+                <Poll className="w-4 h-4 sm:w-5 sm:h-5" />
               </button>
             </div>
             <div className="flex items-center gap-4">
@@ -79,7 +79,7 @@ export default function PostForm() {
               </span>
               <Button
                 onClick={handleSubmit}
-                className="bg-black hover:bg-gray-900 text-white rounded-full px-6"
+                className="bg-black hover:bg-gray-900 text-white rounded-full md:px-6 px-4"
                 disabled={isPending || !content.trim() || content.length > 280}
               >
                 {isPending ? (

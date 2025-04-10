@@ -37,13 +37,15 @@ export default function PostList({
           <Post
             id={post.id}
             author={{
+              id: post.user.username,
               name: post.user.name,
               username: post.user.username,
-              displayUsername: formatUsername(post.user.username),
+              imageUrl: post.user.image || "",
               avatar: post.user.image || "",
             }}
             content={post.content}
             createdAt={post.createdAt.toLocaleDateString("ja-JP", {
+              year: "numeric",
               month: "long",
               day: "numeric",
             })}

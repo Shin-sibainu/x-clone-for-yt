@@ -1,5 +1,7 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@clerk/nextjs/server";
 import Post from "@/components/post";
@@ -72,14 +74,21 @@ export default async function PostPage({
     <MainLayout>
       <div className="flex flex-col h-screen">
         <div className="border-b border-gray-200 p-4">
-          <h1 className="text-xl font-bold">投稿</h1>
+          <div className="flex items-center gap-6">
+            <Link href="/" className="hover:bg-gray-50 p-2 rounded-full">
+              <ArrowLeft className="w-5 h-5" />
+            </Link>
+            <h1 className="text-xl font-bold">投稿</h1>
+          </div>
         </div>
         <div className="border-b border-gray-200">
           <Post
             id={post.id}
             author={{
+              id: post.user.id,
               name: post.user.name,
               username: post.user.username,
+              imageUrl: post.user.image || "",
               avatar: post.user.image || "",
             }}
             content={post.content}

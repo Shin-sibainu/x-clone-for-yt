@@ -6,6 +6,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { toggleLike } from "@/app/actions/like.action";
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
+import { formatDate, formatUsername } from "@/lib/utils";
 
 export interface PostStats {
   replies: number;
@@ -14,9 +15,10 @@ export interface PostStats {
 }
 
 export interface PostAuthor {
+  id: string;
   name: string;
-  username: string; // リンク用の完全なユーザー名
-  displayUsername?: string; // 表示用の短縮ユーザー名（オプション）
+  username: string;
+  imageUrl: string;
   avatar: string;
 }
 
@@ -77,29 +79,25 @@ export default function Post({
   };
 
   const PostContent = (
-    <article className="p-4 hover:bg-gray-50">
-      <div className="flex items-start gap-4">
+    <article className="p-3 sm:p-4 hover:bg-gray-50">
+      <div className="flex items-start gap-2 sm:gap-4">
         <button onClick={handleUserClick} className="hover:opacity-80">
-          <Avatar className="w-12 h-12">
+          <Avatar className="w-10 h-10 sm:w-12 sm:h-12">
             <AvatarImage src={author.avatar} />
             <AvatarFallback>{author.name[0]}</AvatarFallback>
           </Avatar>
         </button>
-        <div className="flex-1">
-          <div className="flex items-center gap-2">
-            <button onClick={handleUserClick} className="hover:underline">
-              <span className="font-bold">{author.name}</span>
-            </button>
-            <button onClick={handleUserClick} className="hover:underline">
-              <span className="text-gray-500">
-                @{author.displayUsername || author.username}
-              </span>
-            </button>
-            <span className="text-gray-500">・</span>
-            <span className="text-gray-500">{createdAt}</span>
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-1 sm:gap-2 text-sm sm:text-base">
+            <span className="font-bold hover:underline">{author.name}</span>
+            <span className="text-gray-500">
+              {formatUsername(author.username)}
+            </span>
+            <span className="text-gray-500">·</span>
+            <time className="text-gray-500">{createdAt}</time>
           </div>
-          <p className="whitespace-pre-line mt-1">{content}</p>
-          <div className="flex justify-between mt-3 max-w-md text-gray-500">
+          <p className="whitespace-pre-line mt-1 break-words">{content}</p>
+          <div className="flex justify-between mt-3 max-w-md text-gray-500 text-sm sm:text-base">
             <button className="flex items-center gap-1 group">
               <div className="p-2 rounded-full group-hover:bg-[#1d9bf0]/10">
                 <MessageCircle className="w-5 h-5 group-hover:text-[#1d9bf0]" />

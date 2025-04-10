@@ -9,6 +9,7 @@ import { likeReply } from "@/app/actions/like.action";
 import { useAuth } from "@clerk/nextjs";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { formatDate, formatUsername } from "@/lib/utils";
 
 interface ReplyProps {
   id: string;
@@ -86,73 +87,72 @@ export default function Reply({
   };
 
   const ReplyContent = (
-    <>
-      <article className="p-4 hover:bg-gray-50">
-        <div className="flex gap-4">
-          <Avatar className="w-12 h-12">
+    <article className="p-3 sm:p-4 hover:bg-gray-50">
+      <div className="flex items-start gap-2 sm:gap-4">
+        <button onClick={handleReplyClick} className="hover:opacity-80">
+          <Avatar className="w-10 h-10 sm:w-12 sm:h-12">
             <AvatarImage src={author.imageUrl} />
             <AvatarFallback>{author.name[0]}</AvatarFallback>
           </Avatar>
-          <div className="flex-1">
-            <div className="flex items-center gap-2">
-              <span className="font-bold">{author.name}</span>
-              <span className="text-gray-500">@{author.username}</span>
-              <span className="text-gray-500">・</span>
-              <span className="text-gray-500">
-                {formatDistanceToNow(new Date(createdAt), {
-                  addSuffix: true,
-                  locale: ja,
-                })}
-              </span>
-            </div>
-            <p className="whitespace-pre-line mt-1">{content}</p>
-            <div className="flex justify-between mt-3 max-w-md text-gray-500">
-              <button
-                onClick={handleReplyClick}
-                className="flex items-center gap-1 group"
-              >
-                <div className="p-2 rounded-full group-hover:bg-[#1d9bf0]/10">
-                  <MessageCircle className="w-5 h-5 group-hover:text-[#1d9bf0]" />
-                </div>
-                <span className="group-hover:text-[#1d9bf0]">{replies}</span>
-              </button>
-              <button className="flex items-center gap-1 group">
-                <div className="p-2 rounded-full group-hover:bg-[#00ba7c]/10">
-                  <Repeat2 className="w-5 h-5 group-hover:text-[#00ba7c]" />
-                </div>
-                <span className="group-hover:text-[#00ba7c]">0</span>
-              </button>
-              <button
-                onClick={handleLike}
-                className="flex items-center gap-1 group"
-              >
-                <div className="p-2 rounded-full group-hover:bg-[#f91880]/10">
-                  <Heart
-                    className={`w-5 h-5 ${
-                      isLiked
-                        ? "text-[#f91880] fill-[#f91880]"
-                        : "group-hover:text-[#f91880]"
-                    }`}
-                  />
-                </div>
-                <span
-                  className={`${
-                    isLiked ? "text-[#f91880]" : "group-hover:text-[#f91880]"
+        </button>
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-1 sm:gap-2 text-sm sm:text-base">
+            <span className="font-bold hover:underline">{author.name}</span>
+            <span className="text-gray-500">
+              {formatUsername(author.username)}
+            </span>
+            <span className="text-gray-500">·</span>
+            <time className="text-gray-500">
+              {formatDate(new Date(createdAt))}
+            </time>
+          </div>
+          <p className="whitespace-pre-line mt-1 break-words">{content}</p>
+          <div className="flex justify-between mt-3 max-w-md text-gray-500 text-sm sm:text-base">
+            <button
+              onClick={handleReplyClick}
+              className="flex items-center gap-1 group"
+            >
+              <div className="p-2 rounded-full group-hover:bg-[#1d9bf0]/10">
+                <MessageCircle className="w-5 h-5 group-hover:text-[#1d9bf0]" />
+              </div>
+              <span className="group-hover:text-[#1d9bf0]">{replies}</span>
+            </button>
+            <button className="flex items-center gap-1 group">
+              <div className="p-2 rounded-full group-hover:bg-[#00ba7c]/10">
+                <Repeat2 className="w-5 h-5 group-hover:text-[#00ba7c]" />
+              </div>
+              <span className="group-hover:text-[#00ba7c]">0</span>
+            </button>
+            <button
+              onClick={handleLike}
+              className="flex items-center gap-1 group"
+            >
+              <div className="p-2 rounded-full group-hover:bg-[#f91880]/10">
+                <Heart
+                  className={`w-5 h-5 ${
+                    isLiked
+                      ? "text-[#f91880] fill-[#f91880]"
+                      : "group-hover:text-[#f91880]"
                   }`}
-                >
-                  {optimisticLikes.length}
-                </span>
-              </button>
-              <button className="flex items-center gap-1 group">
-                <div className="p-2 rounded-full group-hover:bg-[#1d9bf0]/10">
-                  <Share className="w-5 h-5 group-hover:text-[#1d9bf0]" />
-                </div>
-              </button>
-            </div>
+                />
+              </div>
+              <span
+                className={`${
+                  isLiked ? "text-[#f91880]" : "group-hover:text-[#f91880]"
+                }`}
+              >
+                {optimisticLikes.length}
+              </span>
+            </button>
+            <button className="flex items-center gap-1 group">
+              <div className="p-2 rounded-full group-hover:bg-[#1d9bf0]/10">
+                <Share className="w-5 h-5 group-hover:text-[#1d9bf0]" />
+              </div>
+            </button>
           </div>
         </div>
-      </article>
-    </>
+      </div>
+    </article>
   );
 
   if (disableLink) {

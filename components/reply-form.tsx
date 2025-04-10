@@ -71,7 +71,7 @@ export default function ReplyForm({ postId, parentReplyId }: ReplyFormProps) {
           className="min-h-[80px] border-none bg-transparent text-xl resize-none placeholder:text-gray-500 pb-0 focus-visible:ring-0"
         />
         <div className="flex items-center justify-between mt-2">
-          <div className="flex gap-2 text-[#1D9BF0]">
+          <div className="sm:flex gap-2 text-[#1D9BF0] hidden">
             <button
               type="button"
               className="hover:bg-blue-50 p-1.5 rounded-full"
@@ -107,7 +107,7 @@ export default function ReplyForm({ postId, parentReplyId }: ReplyFormProps) {
             <span className="text-sm text-gray-500">{content.length}/280</span>
             <Button
               type="submit"
-              className="bg-black hover:bg-gray-900 text-white rounded-full px-6"
+              className="bg-black hover:bg-gray-900 text-white rounded-full px-6 md:px-3"
               disabled={isSubmitting || !content.trim() || content.length > 280}
             >
               {isSubmitting ? (
