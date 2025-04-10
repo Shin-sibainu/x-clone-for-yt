@@ -8,8 +8,10 @@ import Post from "@/components/post";
 import ProfileHeader from "@/components/profile-header";
 
 const dummyUser = {
+  id: "1",
   name: "Shin@プログラミングチュートリアル",
   username: "Shin_Engineer",
+  imageUrl: "https://api.dicebear.com/7.x/avataaars/svg?seed=1",
   avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=1",
   bio: "5.1万人プログラミング解説系Youtuber | 3万人受講生のUdemy講師 | Next.js書籍を連載中にて執筆中 | AI低動開発エンジニア | お仕事はDMにて",
   location: "東京",
