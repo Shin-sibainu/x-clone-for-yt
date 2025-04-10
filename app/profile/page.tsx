@@ -13,7 +13,7 @@ const dummyUser = {
   username: "Shin_Engineer",
   imageUrl: "https://api.dicebear.com/7.x/avataaars/svg?seed=1",
   avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=1",
-  bio: "5.1万人プログラミング解説系Youtuber | 3万人受講生のUdemy講師 | Next.js書籍を連載中にて執筆中 | AI低動開発エンジニア | お仕事はDMにて",
+  bio: "プログラミング講師 | 技術書執筆中 | フルスタックエンジニア | 新しい技術が大好き",
   location: "東京",
   website: "shincode.info",
   joinedAt: "2020年11月",
@@ -30,34 +30,23 @@ const dummyPosts = [
   {
     id: 1,
     content:
-      "【ShinCode_Camp】運営中です📝\n\n👨‍🏫春からリリースしたUdemy講座見放題\n📘オリジナルWebプログラムコース最放題\n👨‍💻Shinと個別相談可能\n💭無制限Discordコミュニティで情報共有\n🎁1週間の無料トライアル付き",
+      "【新講座開講のお知らせ】\n\n✨ プログラミング入門講座\n📚 基礎から応用まで\n💻 実践的な演習付き\n🎉 受講生特典あり\n\n詳しくはプロフィールのリンクから！",
     createdAt: "4月6日",
     stats: {
-      replies: 42,
-      reposts: 128,
-      likes: 891,
+      discussions: 42,
+      shares: 128,
+      favorites: 891,
     },
   },
   {
     id: 2,
     content:
-      "新しいNext.js講座の収録が終わりました！\n\nApp RouterやServer Componentsなど、最新の機能を詳しく解説しています。\n\n公開をお楽しみに！ #NextJS #プログラミング学習",
+      "新しいWeb開発講座の収録完了！\n\n最新のフレームワークや開発手法について、詳しく解説しています。\n\n公開をお楽しみに！ #プログラミング学習",
     createdAt: "4月5日",
     stats: {
-      replies: 31,
-      reposts: 95,
-      likes: 723,
-    },
-  },
-  {
-    id: 3,
-    content:
-      "プログラミング学習で大切なのは継続すること。\n\n毎日コツコツ積み重ねていけば、必ず成長を実感できます。\n\n今日も頑張りましょう！ 💪 #プログラミング初心者",
-    createdAt: "4月4日",
-    stats: {
-      replies: 25,
-      reposts: 82,
-      likes: 654,
+      discussions: 31,
+      shares: 95,
+      favorites: 723,
     },
   },
 ];
@@ -82,19 +71,21 @@ export default function ProfilePage() {
 
         <Tabs defaultValue="posts" className="w-full">
           <TabsList className="w-full justify-start h-auto p-0 bg-transparent border-b border-gray-200">
-            {["posts", "replies", "highlights", "media", "likes"].map((tab) => (
-              <TabsTrigger
-                key={tab}
-                value={tab}
-                className="flex-1 py-4 rounded-none border-b-2 border-transparent data-[state=active]:border-[#1D9BF0] data-[state=active]:shadow-none"
-              >
-                {tab === "posts" && "ポスト"}
-                {tab === "replies" && "返信"}
-                {tab === "highlights" && "ハイライト"}
-                {tab === "media" && "メディア"}
-                {tab === "likes" && "いいね"}
-              </TabsTrigger>
-            ))}
+            {["posts", "discussions", "bookmarks", "media", "favorites"].map(
+              (tab) => (
+                <TabsTrigger
+                  key={tab}
+                  value={tab}
+                  className="flex-1 py-4 rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:shadow-none"
+                >
+                  {tab === "posts" && "投稿"}
+                  {tab === "discussions" && "トーク"}
+                  {tab === "bookmarks" && "ブックマーク"}
+                  {tab === "media" && "メディア"}
+                  {tab === "favorites" && "お気に入り"}
+                </TabsTrigger>
+              )
+            )}
           </TabsList>
           <TabsContent value="posts">
             {dummyPosts.map((post, index) => (
@@ -109,14 +100,14 @@ export default function ProfilePage() {
               </div>
             ))}
           </TabsContent>
-          <TabsContent value="replies" className="p-4">
+          <TabsContent value="discussions" className="p-4">
             <div className="text-center text-gray-500">
-              まだ返信がありません
+              まだトークがありません
             </div>
           </TabsContent>
-          <TabsContent value="highlights" className="p-4">
+          <TabsContent value="bookmarks" className="p-4">
             <div className="text-center text-gray-500">
-              まだハイライトがありません
+              まだブックマークがありません
             </div>
           </TabsContent>
           <TabsContent value="media" className="p-4">
@@ -124,9 +115,9 @@ export default function ProfilePage() {
               まだメディアがありません
             </div>
           </TabsContent>
-          <TabsContent value="likes" className="p-4">
+          <TabsContent value="favorites" className="p-4">
             <div className="text-center text-gray-500">
-              まだいいねがありません
+              まだお気に入りがありません
             </div>
           </TabsContent>
         </Tabs>

@@ -12,7 +12,7 @@ import {
   User,
   Settings,
   MoreHorizontal,
-  Twitter,
+  Brain,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { UserButton, SignInButton, useUser } from "@clerk/nextjs";
@@ -39,7 +39,10 @@ export default function LeftSidebar() {
   return (
     <aside className="w-[275px] sticky top-0 h-screen flex flex-col px-4 py-2">
       <Link href="/" className="p-2 hover:bg-gray-100 rounded-full w-fit">
-        <Twitter className="w-8 h-8" />
+        <div className="flex items-center gap-2 text-primary">
+          <Brain className="w-8 h-8" />
+          <span className="text-xl font-bold">AI SNS</span>
+        </div>
       </Link>
 
       <nav className="mt-2 space-y-1">
@@ -89,8 +92,8 @@ export default function LeftSidebar() {
         </button>
       </nav>
 
-      <Button className="bg-black hover:bg-gray-900 text-white rounded-full py-6 mt-4 text-lg font-bold">
-        ポストする
+      <Button className="bg-primary hover:bg-primary/90 text-white rounded-full py-6 mt-4 text-lg font-bold">
+        投稿する
       </Button>
 
       <div className="mt-auto mb-4 flex flex-col gap-4">
